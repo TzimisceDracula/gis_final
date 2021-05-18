@@ -113,7 +113,7 @@ function style(feature) {
 
 	function highlightFeature(e) {
 		var layer = e.target;
-
+		console.log(layer);
 		layer.setStyle({
 			weight: 5,
 			color: '#666',
@@ -125,7 +125,7 @@ function style(feature) {
 			layer.bringToFront();
 		}
 
-		info.update(layer.feature.properties);
+		info.update(layer.feature);
 	}
 
 	var geojson;
