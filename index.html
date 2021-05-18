@@ -52,6 +52,19 @@
 	// control that shows state info on hover
 	var info = L.control();
 
+	info.onAdd = function (map) {
+		this._div = L.DomUtil.create('div', 'info');
+		this.update();
+		return this._div;
+	};
+
+	info.update = function (props) {
+		this._div.innerHTML = '<h4>ОГБУЗ ИГБ № 5</h4>' +  (props ?
+			'<b>Участок №' + getFeatureVal(num) + '</b><br />Количество адресов:' + getFeatureVal(count)
+			: 'Наведите на участок');
+	};
+
+
 	var prof_21 = L.marker([52.283996, 104.256657]).bindPopup('ОГБУЗ ИГБ № 5, отделение сестринского ухода');
 	var chel_20 = L.marker([52.283087, 104.258328]).bindPopup('ОГБУЗ ИГБ № 5, женская консультация');
 	var chel_8 = L.marker([52.283925, 104.257367]).bindPopup('ОГБУЗ ИГБ № 5, физиотерапевтическое отделение');
@@ -59,7 +72,7 @@
 	var poly = L.layerGroup([prof_21, chel_20, chel_8, chel_14]);
 	poly.addTo(map);
 	
-	function MakePoly(pointset, message, bcolor, fcolor, map){
+	function MakePoly(n,pointset, message, bcolor, fcolor, map){
 		let p = [];
 		for (var i = 0; i < pointset.length; i++) {
 			var a = turf.point([pointset[i][0],pointset[i][1]], {name: pointset[i][2]});
@@ -71,17 +84,21 @@
 		var geojson = L.geoJson(hull).addTo(map);
 		//console.log(hull.geometry.coordinates[0]);
 		var polygon = L.polygon(hull.geometry.coordinates[0], {
+			count: pointset.length,
+			num: n,
     			color: bcolor,
     			fillColor: fcolor,
     			fillOpacity: 0.5
 			}).bindPopup(message);
+		polygon.on({mouseover: highlightFeature,
+			mouseout: resetHighlight})
 		polygon.addTo(map);
 	}
 	
 	for (var i = 0; i < pointset.length; i++) {
 		var n = i+1;
 		var message = n + ' участок';
-		MakePoly(pointset[i], message, bcolor[i], fcolor[i], map)
+		MakePoly(n,pointset[i], message, bcolor[i], fcolor[i], map)
 	}
 function style(feature) {
 	   return {
