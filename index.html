@@ -59,8 +59,8 @@
 	};
 
 	info.update = function (props) {
-		this._div.innerHTML = '<h4>ОГБУЗ ИГБ № 5</h4>' +  (props ?
-			'<b>Участок №' + getFeatureVal(num) + '</b><br />Количество адресов:' + getFeatureVal(count)
+		this._div.innerHTML = '<h4>ОГБУЗ ИГБ № 5</h4>' +  (
+			'<b>Участок №' + props.num + '</b><br />Количество адресов:' + props.count
 			: 'Наведите на участок');
 	};
 
@@ -107,13 +107,13 @@ function style(feature) {
 		color: 'white',
 		dashArray: '3',
 		fillOpacity: 0.7,
-		fillColor: getColor(getFeatureVal(feature.options))
+		fillColor: getColor(feature.options)
 	   };
 	}
 
 	function highlightFeature(e) {
 		var layer = e.target;
-		console.log(layer.options);
+		console.log(layer.options.num);
 		layer.setStyle({
 			weight: 5,
 			color: '#666',
