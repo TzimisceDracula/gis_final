@@ -59,7 +59,7 @@
 	};
 
 	info.update = function (props) {
-		this._div.innerHTML = '<h4>ОГБУЗ ИГБ № 5</h4>' +  (
+		this._div.innerHTML = '<h4>ОГБУЗ ИГБ № 5</h4>' +  (props ?
 			'<b>Участок №' + props.num + '</b><br />Количество адресов:' + props.count
 			: 'Наведите на участок');
 	};
