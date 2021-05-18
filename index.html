@@ -85,7 +85,7 @@
 	var bcolor = ['red','blue','green','#df73ff','#ff9900'];
 	var fcolor = ['#a00000','#2a52be','#00a000','#ce29ff','#ffa500'];
 	for (var i = 0; i < pointset.length; i++) {
-		var message = toString(i+1) + 'участок';
+		var message = (i+1) + 'участок';
 		MakePoly(pointset[i], message, bcolor[i], fcolor[i], map)
 	}
 function style(feature) {
